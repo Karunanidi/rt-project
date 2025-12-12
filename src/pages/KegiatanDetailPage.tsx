@@ -62,8 +62,8 @@ export function KegiatanDetailPage() {
            <p>Diharapkan membawa peralatan kebersihan masing-masing seperti sapu lidi, cangkul, atau karung sampah.</p>
          `,
                 gallery_urls: [
-                    "https://images.unsplash.com/photo-1598335624176-02e551383793?q=80&w=2069&auto=format&fit=crop",
-                    "https://images.unsplash.com/photo-1626265774643-f1943003363e?q=80&w=2070&auto=format&fit=crop",
+                    "https://images.unsplash.com/photo-1442544213729-6a15f1611937?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                    "https://images.unsplash.com/photo-1527965408463-82ae0731825c?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                     "https://images.unsplash.com/photo-1591189863430-ab87e120f312?q=80&w=2070&auto=format&fit=crop"
                 ]
             }
@@ -102,7 +102,7 @@ export function KegiatanDetailPage() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent" />
 
-                <div className="absolute top-6 left-6 z-10">
+                <div className="absolute top-6 left-6 z-20">
                     <Link to="/">
                         <Button variant="secondary" size="sm" className="gap-2 backdrop-blur-md bg-white/20 hover:bg-white/40 border-0 text-white">
                             <ArrowLeft className="h-4 w-4" /> Kembali

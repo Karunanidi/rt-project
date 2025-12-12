@@ -63,16 +63,6 @@ export function Navbar() {
                     </Link>
                 </NavigationMenuItem>
             )}
-            <NavigationMenuItem>
-                <a href="#" className={navigationMenuTriggerStyle()}>
-                    Dokumentasi
-                </a>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-                <a href="#" className={navigationMenuTriggerStyle()}>
-                    Kontak
-                </a>
-            </NavigationMenuItem>
         </>
     )
 
@@ -92,8 +82,6 @@ export function Navbar() {
                     Pembayaran IPL
                 </Link>
             )}
-            <a href="#" className="text-lg font-medium hover:text-emerald-600 transition-colors">Dokumentasi</a>
-            <a href="#" className="text-lg font-medium hover:text-emerald-600 transition-colors">Kontak</a>
         </div>
     )
 
@@ -104,7 +92,7 @@ export function Navbar() {
                     {/* Mobile Menu Trigger */}
                     <Sheet open={isOpen} onOpenChange={setIsOpen}>
                         <SheetTrigger asChild>
-                            <Button variant="ghost" size="icon" className="md:hidden">
+                            <Button variant="ghost" size="icon" className="md:hidden -ml-2">
                                 <Menu className="h-5 w-5" />
                             </Button>
                         </SheetTrigger>
@@ -115,13 +103,9 @@ export function Navbar() {
                             <MobileNavItems />
                         </SheetContent>
                     </Sheet>
-
                     <Link to="/" className="mr-8 flex items-center space-x-2">
-                        <span className="text-xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent hidden md:inline-block">
+                        <span className="text-xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
                             WargaSepuluh.id
-                        </span>
-                        <span className="text-xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent md:hidden">
-                            W10
                         </span>
                     </Link>
                 </div>
@@ -159,7 +143,7 @@ export function Navbar() {
                         </DropdownMenu>
                     ) : (
                         <Link to="/login">
-                            <Button size="sm" className="bg-gradient-to-r from-emerald-500 to-teal-600">
+                            <Button size="sm" className="bg-gradient-to-r from-emerald-500 to-teal-600 md:ml-2 -mr-2">
                                 <UserCircle className="mr-2 h-4 w-4" />
                                 Login Warga
                             </Button>

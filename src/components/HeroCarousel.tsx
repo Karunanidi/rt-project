@@ -17,7 +17,7 @@ export function HeroCarousel() {
         "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2070&auto=format&fit=crop",
         "https://images.unsplash.com/photo-1511632765486-a01980e01a18?q=80&w=2070&auto=format&fit=crop",
         "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?q=80&w=2070&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1626265774643-f1943003363e?q=80&w=2070&auto=format&fit=crop"
+        "https://images.unsplash.com/photo-1442544213729-6a15f1611937?q=80&w=1332&auto=format&fit=crop"
     ]
 
     return (
@@ -35,10 +35,13 @@ export function HeroCarousel() {
                 <CarouselContent className="h-full ml-0">
                     {backgroundImages.map((img, index) => (
                         <CarouselItem key={index} className="h-full pl-0">
-                            <div
-                                className="h-full w-full bg-cover bg-center transition-transform duration-[10000ms] ease-linear scale-100 group-hover:scale-110"
-                                style={{ backgroundImage: `url(${img})` }}
-                            />
+                            <div className="h-full w-full overflow-hidden">
+                                <img
+                                    src={img}
+                                    alt={`Hero background ${index + 1}`}
+                                    className="h-full w-full object-cover transition-transform duration-[10000ms] ease-linear scale-100 group-hover:scale-110"
+                                />
+                            </div>
                         </CarouselItem>
                     ))}
                 </CarouselContent>
