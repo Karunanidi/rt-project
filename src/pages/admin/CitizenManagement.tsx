@@ -27,7 +27,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import { Search, Edit, Trash2, Shield, User } from "lucide-react"
+import { Search, Edit, Trash2, Shield } from "lucide-react"
 import { fetchAllCitizens, updateCitizen, deleteCitizen, updateUserRole } from "@/lib/adminApi"
 import { useToast } from "@/components/ui/use-toast"
 
