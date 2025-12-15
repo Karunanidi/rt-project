@@ -67,14 +67,15 @@ export function RegisterPage() {
             if (authData.user) {
                 // 2. Insert Profile (Table: profiles)
                 // Ensure this table exists with fields: id (uuid, PK), full_name, house_number, nik, phone
+                console.log("authData.user", authData.user)
                 const { error: profileError } = await supabase
                     .from('profiles')
                     .insert({
                         id: authData.user.id,
-                        full_name: formData.nama_lengkap,
-                        house_number: formData.nomor_rumah, // Standardized column name
+                        nama_lengkap: formData.nama_lengkap,
+                        alamat: formData.nomor_rumah, // Standardized column name
                         nik: formData.nik,
-                        phone: formData.no_hp
+                        no_hp: formData.no_hp
                     })
 
                 if (profileError) {

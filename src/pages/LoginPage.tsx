@@ -37,11 +37,34 @@ export function LoginPage() {
             }
 
             if (data.session) {
+                const user = data.user
+
+                // Fetch user profile to check role
+                const { data: profile, error: profileError } = await supabase
+                    .from('profiles')
+                    .select('role')
+                    .eq('id', user.id)
+                    .maybeSingle()
+
+                if (profileError) {
+                    console.error('Profile fetch error:', profileError)
+                    toast({
+                        variant: "destructive",
+                        title: "Gagal Memuat Profil",
+                        description: "Tidak dapat memuat data profil pengguna.",
+                    })
+                    return
+                }
+
+                // Navigate based on user role
+                const targetPath = profile?.role === 'admin' ? '/admin' : '/dashboard'
+
                 toast({
                     title: "Login Berhasil",
-                    description: "Selamat datang di WargaSepuluh.id",
+                    description: `Selamat datang di WargaSepuluh.id${profile?.role === 'admin' ? ' (Admin)' : ''}`,
                 })
-                navigate("/dashboard")
+
+                navigate(targetPath)
             }
         } catch (err: any) {
             console.error("Login error:", err)

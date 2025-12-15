@@ -14,7 +14,7 @@ export function HeroCarousel() {
     )
 
     const backgroundImages = [
-        "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2070&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1610569244414-5e7453a447a8?q=80&w=1074&auto=format&fit=crop",
         "https://images.unsplash.com/photo-1511632765486-a01980e01a18?q=80&w=2070&auto=format&fit=crop",
         "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?q=80&w=2070&auto=format&fit=crop",
         "https://images.unsplash.com/photo-1442544213729-6a15f1611937?q=80&w=1332&auto=format&fit=crop"

@@ -9,39 +9,112 @@ import { LayananPage } from "@/pages/LayananPage"
 import { KegiatanDetailPage } from "@/pages/KegiatanDetailPage"
 import { EventsPage } from "@/pages/EventsPage"
 import { AgendaPage } from "@/pages/AgendaPage"
+import { NotAuthorizedPage } from "@/pages/NotAuthorizedPage"
 import { AuthProvider } from "@/contexts/AuthContext"
 import { ProtectedRoute } from "@/components/ProtectedRoute"
+import { AdminProtectedRoute } from "@/components/AdminProtectedRoute"
+import { AdminLayout } from "@/components/admin/AdminLayout"
+import { AdminDashboard } from "@/pages/admin/AdminDashboard"
+import { CitizenManagement } from "@/pages/admin/CitizenManagement"
+import { ActivityManagement } from "@/pages/admin/ActivityManagement"
+import { ServiceManagement } from "@/pages/admin/ServiceManagement"
+import { IPLManagement } from "@/pages/admin/IPLManagement"
+import { AdminSettings } from "@/pages/admin/AdminSettings"
 
 function App() {
     return (
         <AuthProvider>
             <Router>
-                <Layout>
-                    <Routes>
-                        <Route path="/" element={<HomePage />} />
-                        <Route path="/login" element={<LoginPage />} />
-                        <Route path="/register" element={<RegisterPage />} />
-                        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-                        <Route path="/layanan" element={<LayananPage />} />
-                        <Route path="/kegiatan/:id" element={<KegiatanDetailPage />} />
+                <Routes>
+                    {/* Public Routes */}
+                    <Route path="/" element={<Layout><HomePage /></Layout>} />
+                    <Route path="/login" element={<Layout><LoginPage /></Layout>} />
+                    <Route path="/register" element={<Layout><RegisterPage /></Layout>} />
+                    <Route path="/forgot-password" element={<Layout><ForgotPasswordPage /></Layout>} />
+                    <Route path="/layanan" element={<Layout><LayananPage /></Layout>} />
+                    <Route path="/kegiatan/:id" element={<Layout><KegiatanDetailPage /></Layout>} />
+                    <Route path="/events" element={<Layout><EventsPage /></Layout>} />
+                    <Route path="/agenda" element={<Layout><AgendaPage /></Layout>} />
+                    <Route path="/not-authorized" element={<Layout><NotAuthorizedPage /></Layout>} />
 
-                        {/* Protected Route */}
-                        <Route
-                            path="/dashboard"
-                            element={
+                    {/* User Protected Route */}
+                    <Route
+                        path="/dashboard"
+                        element={
+                            <Layout>
                                 <ProtectedRoute>
                                     <DashboardPage />
                                 </ProtectedRoute>
-                            }
-                        />
+                            </Layout>
+                        }
+                    />
 
-                        <Route path="/events" element={<EventsPage />} />
-                        <Route path="/agenda" element={<AgendaPage />} />
-                    </Routes>
-                </Layout>
+                    {/* Admin Protected Routes */}
+                    <Route
+                        path="/admin"
+                        element={
+                            <AdminProtectedRoute>
+                                <AdminLayout>
+                                    <AdminDashboard />
+                                </AdminLayout>
+                            </AdminProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/admin/warga"
+                        element={
+                            <AdminProtectedRoute>
+                                <AdminLayout>
+                                    <CitizenManagement />
+                                </AdminLayout>
+                            </AdminProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/admin/kegiatan"
+                        element={
+                            <AdminProtectedRoute>
+                                <AdminLayout>
+                                    <ActivityManagement />
+                                </AdminLayout>
+                            </AdminProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/admin/layanan"
+                        element={
+                            <AdminProtectedRoute>
+                                <AdminLayout>
+                                    <ServiceManagement />
+                                </AdminLayout>
+                            </AdminProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/admin/ipl"
+                        element={
+                            <AdminProtectedRoute>
+                                <AdminLayout>
+                                    <IPLManagement />
+                                </AdminLayout>
+                            </AdminProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/admin/settings"
+                        element={
+                            <AdminProtectedRoute>
+                                <AdminLayout>
+                                    <AdminSettings />
+                                </AdminLayout>
+                            </AdminProtectedRoute>
+                        }
+                    />
+                </Routes>
             </Router>
         </AuthProvider>
     )
 }
 
 export default App
+
