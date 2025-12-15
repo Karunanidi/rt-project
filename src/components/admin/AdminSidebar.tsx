@@ -9,6 +9,7 @@ import {
     ChevronRight
 } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { Logo } from "@/components/Logo"
 
 interface NavItem {
     title: string
@@ -42,9 +43,12 @@ export function AdminSidebar({ isOpen = true, onClose }: AdminSidebarProps) {
             )}
         >
             {/* Logo Header */}
-            <div className="p-6 border-b border-white/10">
-                <h1 className="text-2xl font-bold">WargaSepuluh.id</h1>
-                <p className="text-emerald-100 text-sm mt-1">Admin Panel</p>
+            <div className="p-6 border-b border-white/10 flex items-center gap-3">
+                <Logo className="w-10 h-10" showText={false} />
+                <div>
+                    <h1 className="text-xl font-bold">WargaSepuluh.id</h1>
+                    <p className="text-emerald-100 text-xs">Admin Panel</p>
+                </div>
             </div>
 
             {/* Navigation */}

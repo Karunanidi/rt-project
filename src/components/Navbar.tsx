@@ -20,6 +20,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { useAuth } from "@/contexts/AuthContext"
 import { Menu, UserCircle, LogOut, LayoutDashboard } from "lucide-react"
 import { useState } from "react"
+import { Logo } from "./Logo"
 
 export function Navbar() {
     const { user, signOut } = useAuth()
@@ -97,16 +98,14 @@ export function Navbar() {
                             </Button>
                         </SheetTrigger>
                         <SheetContent side="left">
-                            <div className="text-xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent mb-4">
-                                WargaSepuluh.id
+                            <div className="mb-4">
+                                <Logo className="w-8 h-8" />
                             </div>
                             <MobileNavItems />
                         </SheetContent>
                     </Sheet>
                     <Link to="/" className="mr-8 flex items-center space-x-2">
-                        <span className="text-xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
-                            WargaSepuluh.id
-                        </span>
+                        <Logo className="w-8 h-8" />
                     </Link>
                 </div>
 

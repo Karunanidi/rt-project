@@ -1,6 +1,6 @@
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { X, ImageIcon } from "lucide-react"
+import { useState, useRef, useEffect } from "react"
+import { Input } from "@/components/ui/input"
+import { X, Upload, Image as ImageIcon } from "lucide-react"
 
 interface ImageUploaderProps {
     images: File[]
@@ -8,75 +8,91 @@ interface ImageUploaderProps {
     maxImages?: number
 }
 
-export function ImageUploader({ images, onImagesChange, maxImages = 10 }: ImageUploaderProps) {
+export function ImageUploader({
+    images,
+    onImagesChange,
+    maxImages = 5,
+}: ImageUploaderProps) {
     const [previews, setPreviews] = useState<string[]>([])
+    const fileInputRef = useRef<HTMLInputElement>(null)
 
-    const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const files = Array.from(event.target.files || [])
+    useEffect(() => {
+        // Create previews for new files
+        const newPreviews = images.map((file) => URL.createObjectURL(file))
+        setPreviews(newPreviews)
 
-        if (images.length + files.length > maxImages) {
-            alert(`Maksimal ${maxImages} gambar`)
-            return
+        // Cleanup function to revoke object URLs
+        return () => {
+            newPreviews.forEach((url) => URL.revokeObjectURL(url))
         }
+    }, [images])
 
-        const newImages = [...images, ...files]
-        onImagesChange(newImages)
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            const newFiles = Array.from(e.target.files)
 
-        // Generate previews
-        files.forEach(file => {
-            const reader = new FileReader()
-            reader.onloadend = () => {
-                setPreviews(prev => [...prev, reader.result as string])
+            // Check max images limit
+            const totalImages = images.length + newFiles.length
+            if (totalImages > maxImages) {
+                alert(`Maksimal ${maxImages} gambar yang dapat diunggah.`)
+                return
             }
-            reader.readAsDataURL(file)
-        })
+
+            onImagesChange([...images, ...newFiles])
+        }
     }
 
-    const handleRemove = (index: number) => {
+    const removeImage = (index: number) => {
         const newImages = images.filter((_, i) => i !== index)
-        const newPreviews = previews.filter((_, i) => i !== index)
         onImagesChange(newImages)
-        setPreviews(newPreviews)
     }
 
     return (
         <div className="space-y-4">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {previews.map((preview, index) => (
-                    <div key={index} className="relative aspect-square">
+                    <div key={index} className="relative group aspect-square rounded-lg overflow-hidden border bg-muted">
                         <img
                             src={preview}
                             alt={`Preview ${index + 1}`}
-                            className="w-full h-full object-cover rounded-lg border-2 border-gray-200"
+                            className="object-cover w-full h-full"
                         />
-                        <Button
-                            size="icon"
-                            variant="destructive"
-                            className="absolute top-1 right-1 h-6 w-6 rounded-full"
-                            onClick={() => handleRemove(index)}
+                        <button
+                            onClick={() => removeImage(index)}
+                            className="absolute top-1 right-1 p-1 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                            type="button"
                         >
                             <X className="h-4 w-4" />
-                        </Button>
+                        </button>
                     </div>
                 ))}
 
                 {images.length < maxImages && (
-                    <label className="aspect-square border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center cursor-pointer hover:border-emerald-500 hover:bg-emerald-50/50 transition-colors">
-                        <ImageIcon className="h-8 w-8 text-gray-400" />
-                        <span className="text-xs text-muted-foreground mt-2">Upload Gambar</span>
-                        <input
-                            type="file"
-                            accept="image/*"
-                            multiple
-                            className="hidden"
-                            onChange={handleFileSelect}
-                        />
-                    </label>
+                    <div
+                        onClick={() => fileInputRef.current?.click()}
+                        className="cursor-pointer border-2 border-dashed border-muted-foreground/25 hover:border-muted-foreground/50 rounded-lg flex flex-col items-center justify-center gap-2 aspect-square transition-colors bg-muted/5 hover:bg-muted/10"
+                    >
+                        <div className="p-2 rounded-full bg-background border">
+                            <Upload className="h-5 w-5 text-muted-foreground" />
+                        </div>
+                        <span className="text-xs text-muted-foreground font-medium">Upload Foto</span>
+                    </div>
                 )}
             </div>
-            <p className="text-xs text-muted-foreground">
-                {images.length} / {maxImages} gambar dipilih
-            </p>
+
+            <Input
+                type="file"
+                ref={fileInputRef}
+                onChange={handleFileChange}
+                className="hidden"
+                accept="image/*"
+                multiple
+            />
+
+            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                <ImageIcon className="h-3 w-3" />
+                <span>Maksimal {maxImages} gambar (JPG, PNG)</span>
+            </div>
         </div>
     )
 }
